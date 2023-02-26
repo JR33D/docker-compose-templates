@@ -27,5 +27,5 @@ services:
       # DISABLE_IPV6: 'true'
 
     volumes:
-      - ~/_nginx/data:/data
-      - ~/_nginx/letsencrypt:/etc/letsencrypt
+      - /data/_nginx/data:/data
+      - /data/_nginx/letsencrypt:/etc/letsencrypt
