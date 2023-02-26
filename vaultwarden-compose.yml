@@ -33,5 +33,12 @@ services:
       - SENDS_ALLOWED=true
       - WEB_VAULT_ENABLED=true
 
+    networks:
+      - reverseproxy-nw
+
+networks:
+  reverseproxy-nw:
+    external: true
+    
 volumes:
     vaultwarden: {}

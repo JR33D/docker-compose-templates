@@ -3,6 +3,7 @@ version: '3.3'
 services:
   resume:
     image: ghcr.io/jr33d/resume-jreed-me:latest
+    restart: unless-stopped
     deploy:
       replicas: 1
     ports:
@@ -12,4 +13,9 @@ services:
       SENDGRID_API_KEY:
       CONTACT_EMAIL:
       APP_EMAIL:
-    restart: unless-stopped
+    networks:
+      - reverseproxy-nw
+
+networks:
+  reverseproxy-nw:
+    external: true

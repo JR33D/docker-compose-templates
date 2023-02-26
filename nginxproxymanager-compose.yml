@@ -29,3 +29,11 @@ services:
     volumes:
       - /data/_nginx/data:/data
       - /data/_nginx/letsencrypt:/etc/letsencrypt
+
+    networks:
+      - nginx-proxy-manager-nw
+      - reverseproxy-nw
+
+networks:
+  reverseproxy-nw:
+    external: true
