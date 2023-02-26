@@ -6,8 +6,9 @@ services:
     restart: unless-stopped
     deploy:
       replicas: 1
-    constraints:
-      - node.role == manager
+      placement:
+        constraints:
+          - node.role == manager
     ports:
       # These ports are in format <host-port>:<container-port>
       - '80:80' # Public HTTP Port
