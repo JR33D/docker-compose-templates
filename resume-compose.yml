@@ -3,6 +3,8 @@ version: '3.3'
 services:
   resume:
     image: ghcr.io/jr33d/resume-jreed-me:latest
+    deploy:
+      replicas: 1
     ports:
       - 3000:3000
       - 3001:3001
