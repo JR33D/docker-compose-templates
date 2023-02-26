@@ -31,7 +31,6 @@ services:
       - /data/_nginx/letsencrypt:/etc/letsencrypt
 
     networks:
-      - nginx-proxy-manager-nw
       - reverseproxy-nw
 
 networks:
