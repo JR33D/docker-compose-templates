@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   nginxproxymanager:
-    image: 'jc21/nginx-proxy-manager:github-pr-2644'
+    image: 'jc21/nginx-proxy-manager:2.9.18'
     restart: unless-stopped
     deploy:
       replicas: 1
