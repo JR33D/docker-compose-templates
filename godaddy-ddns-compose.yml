@@ -1,12 +1,12 @@
 version: '3.3'
 
 services:
-  resume:
+  godaddy-ddns:
     restart: always
     image: 'peteward44/godaddy-ddns:latest'
     deploy:
       replicas: 1
-    environment:
-      GODADDY_KEY:
-      GODADDY_SECRET:
-      GODADDY_DOMAIN: 
+    # environment:
+    #   GODADDY_KEY:
+    #   GODADDY_SECRET:
+    #   GODADDY_DOMAIN: 
