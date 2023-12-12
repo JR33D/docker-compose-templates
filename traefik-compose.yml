@@ -24,5 +24,5 @@ services:
 networks:
   reverseproxy-nw:
     external: true
-  traefik-network:
+  traefik-reverse-proxy_default:
     external: true

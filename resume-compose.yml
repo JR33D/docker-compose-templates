@@ -20,10 +20,10 @@ services:
       APP_EMAIL:
     networks:
       - reverseproxy-nw
-      - traefik-network
+      - traefik-reverse-proxy_default
 
 networks:
   reverseproxy-nw:
     external: true
-  traefik-network:
+  traefik-reverse-proxy_default:
     external: true
