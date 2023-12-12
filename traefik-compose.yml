@@ -14,7 +14,7 @@ services:
       - "--providers.docker.exposedbydefault=false"
       - "--providers.docker.network=web-servers"
       - "--entrypoints.dashboard.address=:80"
-      - "--entrypoints.web.address=:80"
+      # - "--entrypoints.web.address=:80"
       # - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
       # - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
       - "--entrypoints.websecure.address=:443"
