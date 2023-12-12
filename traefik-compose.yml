@@ -12,7 +12,7 @@ services:
     command:
       - "--api.insecure=true"
       - "--providers.docker=true"
-      - "--providers.docker.endpoint=tcp://127.0.0.1:2377"
+      - "--providers.docker.endpoint=tcp://192.168.4.31:2377"
       - "--providers.docker.swarmMode=true"
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
