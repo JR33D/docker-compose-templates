@@ -9,10 +9,13 @@ services:
       placement:
         constraints:
           - node.role == manager
+    providers:
+      docker:
+        endpoint: "tcp://127.0.0.1:2377"
+        swarmMode: true
+        exposedbydefault: false
     command:
       - "--api.insecure=true"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
     ports:
       - "80:80"
