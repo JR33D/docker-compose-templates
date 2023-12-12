@@ -1,30 +1,71 @@
-version: '3.3'
+version: "3.3"
 
 services:
   traefik:
-    image: traefik:latest
-    restart: unless-stopped
+    image: "traefik:v2.3"
+    command:
+      - "--api=false"
+      - "--providers.docker=true"
+      - "--providers.docker.swarmMode=true"
+      - "--providers.docker.watch=true"
+      - "--providers.docker.endpoint=tcp://socket-proxy:2375"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=web-servers"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      - "--entrypoints.websecure.address=:443"
+      - "--providers.file.filename=/letsencrypt/default-tls-options.yml"
+      - "--entrypoints.websecure.http.tls.options=default@file"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+      - "--certificatesresolvers.myresolver.acme.email=EMAIL_GOES_HERE"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "letsencrypt:/letsencrypt"
+    networks:
+      - web-servers
+      - socket-proxy
+    #I don't think this constraint is required since the socket-proxy is on a manager.
     deploy:
-      replicas: 1
       placement:
         constraints:
           - node.role == manager
-    command:
-      - "--api.insecure=true"
-      - "--providers.docker=true"
-      - "--providers.docker.endpoint=tcp://10.0.1.0:2377"
-      - "--providers.docker.swarmMode=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.web.address=:80"
-    ports:
-      - "80:80"
-      - "433:433"
-      - "8080:8080"
+
+  #This is the entry point into the docker socket.
+  #It is not recommended to have a container with exposed ports also
+  #have access to the docker socket. This container also locks down the
+  #docker socket to a subset of GET commands only.
+  socket-proxy:
+    image: tecnativa/docker-socket-proxy
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      CONTAINERS: 1
+      SERVICES: 1
+      NODES: 1
+      NETWORKS: 1
+      TASKS: 1
+      VERSION: 1
+    networks:
+      - socket-proxy
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
 
 networks:
-  reverseproxy-nw:
+  web-servers:
     external: true
-  traefik-reverse-proxy_default:
-    external: true
+  socket-proxy:
+    internal: true
+    #Uncomment to enable network encryption between traefik and the socket proxy
+    #driver_opts:
+    #  encrypted: ""
+
+volumes:
+  letsencrypt:
+    driver: local
