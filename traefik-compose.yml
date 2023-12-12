@@ -13,7 +13,7 @@ services:
       - "--providers.docker.endpoint=tcp://socket-proxy:2375"
       - "--providers.docker.exposedbydefault=false"
       - "--providers.docker.network=web-servers"
-      - "--entrypoints.dashboard.address=:8080"
+      # - "--entrypoints.dashboard.address=:8080"
       - "--entrypoints.web.address=:80"
       # - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
       # - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
@@ -33,7 +33,7 @@ services:
     labels:
       - "traefik.http.routers.api.rule=Host(`traefik.localhost`)"
       - "traefik.http.routers.api.entrypoints=dashboard"
-      - "traefik.http.routers.api.rule=PathPrefix(`/api`) || PathPrefix(`/dashboard`)"
+      - "traefik.http.routers.api.rule=PathPrefix(`/api`, `/dashboard`)"
       - "traefik.http.routers.api.service=api@internal"
     networks:
       - web-servers
