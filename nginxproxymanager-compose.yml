@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   nginxproxymanager:
-    image: 'jc21/nginx-proxy-manager:2.10.2'
+    image: 'jc21/nginx-proxy-manager:2.9.22'
     restart: unless-stopped
     deploy:
       replicas: 1
@@ -18,10 +18,10 @@ services:
       # - '21:21' # FTP
 
     # Uncomment the next line if you uncomment anything in the section
-    environment:
+    # environment:
       # Uncomment this if you want to change the location of 
       # the SQLite DB file within the container
-      DB_SQLITE_FILE: "../database.sqlite"
+      # DB_SQLITE_FILE: "../database.sqlite"
 
       # Uncomment this if IPv6 is not enabled on your host
       # DISABLE_IPV6: 'true'
