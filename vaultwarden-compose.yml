@@ -9,6 +9,10 @@ services:
       - vaultwarden:/data/
     ports:
       - 8062:80
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.vaultwarden.rule=Host(`vault.kingandqueen.cloud`)
+      - traefik.http.services.vaultwarden.loadbalancer.server.port=8062
     environment:
       - SMTP_HOST=smtp.sendgrid.net
       - SMTP_FROM=vault@KingandQueen.cloud
@@ -35,9 +39,12 @@ services:
 
     networks:
       - reverseproxy-nw
+      - traefik-network
 
 networks:
   reverseproxy-nw:
+    external: true
+  traefik-network:
     external: true
     
 volumes:
