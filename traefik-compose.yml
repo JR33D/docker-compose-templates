@@ -30,6 +30,11 @@ services:
       - "8080:8080"
     volumes:
       - "/data/_traefik/letsencrypt:/letsencrypt"
+    labels:
+      - "traefik.http.routers.api.rule=Host(`traefik.localhost`)"
+      - "traefik.http.routers.api.entrypoints=dashboard"
+      - "traefik.http.routers.api.rule=PathPrefix(`/api`) || PathPrefix(`/dashboard`)"
+      - "traefik.http.routers.api.service=api@internal"
     networks:
       - web-servers
       - socket-proxy
