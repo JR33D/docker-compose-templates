@@ -38,13 +38,10 @@ services:
       - WEB_VAULT_ENABLED=true
 
     networks:
-      - reverseproxy-nw
-      - traefik-reverse-proxy_default
+      - web-servers
 
 networks:
-  reverseproxy-nw:
-    external: true
-  traefik-reverse-proxy_default:
+  web-servers:
     external: true
     
 volumes:

@@ -19,11 +19,8 @@ services:
       CONTACT_EMAIL:
       APP_EMAIL:
     networks:
-      - reverseproxy-nw
-      - traefik-reverse-proxy_default
+      - web-servers
 
 networks:
-  reverseproxy-nw:
-    external: true
-  traefik-reverse-proxy_default:
+  web-servers:
     external: true
