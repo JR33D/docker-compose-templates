@@ -13,7 +13,7 @@ services:
       - /data/_traefik/letsencrypt:/letsencrypt
       - /data/_traefik/traefik.yml:/traefik.yml:ro
     labels:
-      - "traefik.http.routers.api.rule=Host(`traefik.kingandqueen.cloud`)"
+      - "traefik.http.routers.api.rule=Host(`traefik.localhost`)"
       - "traefik.http.routers.api.entrypoints=dashboard"
       - "traefik.http.routers.api.rule=PathPrefix(`/api`, `/dashboard`)"
       - "traefik.http.routers.api.service=api@internal"
