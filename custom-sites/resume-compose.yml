@@ -10,7 +10,6 @@ services:
         - traefik.enable=true
         - traefik.http.routers.resume.rule=Host(`resume.jreed.me`)
         - traefik.http.services.resume_resume.loadbalancer.server.port=3000
-        - traefik.http.services.resume_resume.loadbalancer.server.port=3001
     ports:
       - 3000:3000
       - 3001:3001
