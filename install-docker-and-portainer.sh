@@ -70,7 +70,7 @@ startInstall()
 
     if [[ "$OS" == "7" ]]; then
         echo "    1. Installing System Updates..."
-        (sudo apt update  && sudoa apt upgrade -y) > ~/docker-script-install.loc 2>&1 &
+        (sudo apt update  && sudoa apt upgrade -y) > ~/docker-script-install.log 2>&1 &
         ## Show a spinner for activity progress
         pid=$   # Process ID of the previous running command
         spin='-\|/'
@@ -122,7 +122,7 @@ startInstall()
 
             if [[ "$OS" == 2 ]]; then
                 echo "    5. Starting Docker Service"
-                sudo systemctl docker start >> ~/docker-script-install.log 2>&1
+                sudo systemctl start docker  >> ~/docker-script-install.log 2>&1
             fi
         fi
     fi
@@ -519,10 +519,9 @@ startInstall()
         cd
     fi
 
-    echo "All docker applications have been added to the docker network my-main-net"
+    echo "All docker applications have been added to the docker network web-private"
     echo ""
-    echo "If you add more docker applications to this server, make sure to add them to the my-main-net network."
-    echo "You can then use them by container name in NGinX Proxy Manager if so desired."
+    echo "If you add more docker applications to this server, make sure to add them to the correct network."
 
     exit 1
 }
