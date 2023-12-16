@@ -4,7 +4,7 @@ services:
   traefik:
     image: "traefik:latest"
     command:
-      - "--configFile=~/docker/traefik/traefik.yml:/traefik.yml"
+      - "--configFile=/traefik.yml"
     ports:
       - "80:80"
       - "443:443"
