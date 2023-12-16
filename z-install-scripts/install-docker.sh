@@ -147,13 +147,13 @@ installApps()
     echo "################################################"
 
     echo "Creating 'web-public' docker network"
-    sudo docker network create web-public
+    sudo docker network create -d overlay web-public
     sleep 2s
     echo "Creating 'web-private' docker network"
-    sudo docker network create web-private
+    sudo docker network create -d overlay web-private
     sleep 2s
     echo "Creating 'socket-proxy' docker network"
-    sudo docker network create socket-proxy
+    sudo docker network create -d overlay socket-proxy
     sleep 2s
     # move to home directory of user
     cd

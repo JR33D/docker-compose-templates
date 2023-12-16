@@ -4,14 +4,14 @@ services:
   traefik:
     image: "traefik:latest"
     command:
-      - "--configFile=/traefik.yml"
+      - "--configFile=~/docker/traefik/traefik.yml:/traefik.yml"
     ports:
       - "80:80"
       - "443:443"
       - "8080:8080"
     volumes:
-      - ~/docker/traefik/letsencrypt:/letsencrypt
-      - ~/docker/traefik/traefik.yml:/traefik.yml:ro
+      - ./docker/traefik/letsencrypt:/letsencrypt
+      - ./docker/traefik/traefik.yml:/traefik.yml:ro
     labels:
       - "traefik.http.routers.api.rule=Host(`traefik.localhost`)"
       - "traefik.http.routers.api.entrypoints=dashboard"
