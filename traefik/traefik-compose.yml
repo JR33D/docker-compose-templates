@@ -10,15 +10,16 @@ services:
       - "443:443"
       - "8080:8080"
     volumes:
-      - /data/_traefik/letsencrypt:/letsencrypt
-      - /data/_traefik/traefik.yml:/traefik.yml:ro
+      - ~/docker/traefik/letsencrypt:/letsencrypt
+      - ~/docker/traefik/traefik.yml:/traefik.yml:ro
     labels:
       - "traefik.http.routers.api.rule=Host(`traefik.localhost`)"
       - "traefik.http.routers.api.entrypoints=dashboard"
       - "traefik.http.routers.api.rule=PathPrefix(`/api`, `/dashboard`)"
       - "traefik.http.routers.api.service=api@internal"
     networks:
-      - web-servers
+      - web-public
+      - web-private
       - socket-proxy
     #I don't think this constraint is required since the socket-proxy is on a manager.
     deploy:
@@ -49,7 +50,9 @@ services:
           - node.role == manager
 
 networks:
-  web-servers:
+  web-public:
+    external: true
+  web-private:
     external: true
   socket-proxy:
     internal: true
