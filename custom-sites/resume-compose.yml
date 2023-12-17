@@ -15,8 +15,8 @@ services:
         - "traefik.http.services.resume_client.loadbalancer.server.port=3000"
         - traefik.http.routers.resume_client.tls=true
         - traefik.http.routers.resume_client.tls.certresolver=myresolver
-        - traefik.http.routers.resume_client.tls.domains[0].main=example.org
-        - traefik.http.routers.resume_client.tls.domains[0].sans=*.example.org
+        - traefik.http.routers.resume_client.tls.domains[0].main=jreed.me
+        - traefik.http.routers.resume_client.tls.domains[0].sans=*.jreed.me
 
         - "traefik.http.routers.resume_server.rule=Host(`resume.jreed.me/api`)"
         - "traefik.http.routers.resume_server.service=resume_server"
@@ -24,8 +24,8 @@ services:
         - "traefik.http.services.resume_server.loadbalancer.server.port=3001"
         - traefik.http.routers.resume_server.tls=true
         - traefik.http.routers.resume_server.tls.certresolver=myresolver
-        - traefik.http.routers.resume_server.tls.domains[0].main=example.org
-        - traefik.http.routers.resume_server.tls.domains[0].sans=*.example.org
+        - traefik.http.routers.resume_server.tls.domains[0].main=jreed.me
+        - traefik.http.routers.resume_server.tls.domains[0].sans=*.jreed.me
     ports:
       - 3000:3000
       - 3001:3001
