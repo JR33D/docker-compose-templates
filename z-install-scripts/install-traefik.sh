@@ -33,7 +33,7 @@ curl https://raw.githubusercontent.com/JR33D/docker-compose-templates/main/traef
 echo ""
 cd ..
 
-
+cd ~/docker/traefik
 sudo docker stack deploy --compose-file docker-compose.yml traefik
 
 echo ""
