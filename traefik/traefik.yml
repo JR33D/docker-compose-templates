@@ -38,22 +38,22 @@ entryPoints:
 # Traefik logs
 # Enabled by default and log to stdout
 # Optional
-#log:
+log:
   # Log level
   # Optional
   # Default: "ERROR"
-  # level: DEBUG
+  level: DEBUG
 
   # Sets the filepath for the traefik log. If not specified, stdout will be used.
   # Intermediate directories are created if necessary.
   # Optional
   # Default: os.Stdout
-  # filePath: log/traefik.log
+  filePath: /log/debug.log
 
   # Format is either "json" or "common".
   # Optional
   # Default: "common"
-  # format: json
+  format: json
 
 ################################################################
 # Access logs configuration
@@ -63,17 +63,17 @@ entryPoints:
 # By default it will write to stdout and produce logs in the textual
 # Common Log Format (CLF), extended with additional fields.
 # Optional
-#accessLog:
-  # Sets the file path for the access log. If not specified, stdout will be used.
-  # Intermediate directories are created if necessary.
-  # Optional
-  # Default: os.Stdout
-  # filePath: /path/to/log/log.txt
+accessLog:
+  #Sets the file path for the access log. If not specified, stdout will be used.
+  #Intermediate directories are created if necessary.
+  #Optional
+  #Default: os.Stdout
+  filePath: /logs/access.log
 
-  # Format is either "json" or "common".
-  # Optional
-  # Default: "common"
-  # format: json
+  #Format is either "json" or "common".
+  #Optional
+  #Default: "common"
+  format: json
 
 ################################################################
 # API and dashboard configuration
