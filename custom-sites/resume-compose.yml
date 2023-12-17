@@ -18,8 +18,7 @@ services:
       CONTACT_EMAIL:
       APP_EMAIL:
     networks:
-      - web-servers
-
+      - web-public
 networks:
-  web-servers:
+  web-public:
     external: true

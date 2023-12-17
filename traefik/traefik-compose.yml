@@ -10,8 +10,8 @@ services:
       - "443:443"
       - "8080:8080"
     volumes:
-      - /home/piadmin/docker/traefik/letsencrypt:/letsencrypt
-      - /home/piadmin/docker/traefik/traefik.yml:/traefik.yml:ro
+      - ./letsencrypt:/letsencrypt
+      - ./traefik.yml:/traefik.yml:ro
     labels:
       - "traefik.http.routers.api.rule=Host(`traefik.localhost`)"
       - "traefik.http.routers.api.entrypoints=dashboard"
