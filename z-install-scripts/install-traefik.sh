@@ -7,7 +7,7 @@ echo "    1. Preparing to install Traefik Proxy"
 echo "    2. Creating the folder structure for Traefik."
 echo "    3. You can find Portainer-Agent files in ./docker/traefik"
 
-sudo docker volume create traefik_data
+#sudo docker volume create traefik_data
 mkdir -p docker/traefik
 cd docker/traefik
 echo "downloading traefik compose file...."

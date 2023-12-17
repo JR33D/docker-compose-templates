@@ -7,7 +7,7 @@ echo "    1. Preparing to install Portainer Agent"
 echo "    2. Creating the folder structure for Portainer."
 echo "    3. You can find Portainer-Agent files in ./docker/portainer"
 
-sudo docker volume create portainer_data
+#sudo docker volume create portainer_data
 mkdir -p docker/portainer
 cd docker/portainer
 curl https://raw.githubusercontent.com/JR33D/docker-compose-templates/main/portainer/portainer-ce-agent-compose.yml -o docker-compose.yml >> ~/docker-script-install.log 2>&1

@@ -30,6 +30,7 @@ entryPoints:
     http: 
       tls: 
         options: default
+        certResolver: myresolver
 
 ################################################################
 # Traefik logs configuration

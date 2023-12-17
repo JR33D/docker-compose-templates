@@ -13,6 +13,8 @@ services:
       GODADDY_API_KEY:
       GODADDY_API_SECRET:
     volumes:
+      - ./log:/log
+      - ./configuration:/configuration
       - ./letsencrypt:/letsencrypt
       - ./traefik.yml:/traefik.yml:ro
     labels:
@@ -63,6 +65,6 @@ networks:
     #driver_opts:
     #  encrypted: ""
 
-volumes:
-  letsencrypt:
-    driver: local
+# volumes:
+#   letsencrypt:
+#     driver: local
