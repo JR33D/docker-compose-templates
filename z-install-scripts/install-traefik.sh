@@ -13,13 +13,21 @@ cd docker/traefik
 echo "downloading traefik compose file...."
 curl https://raw.githubusercontent.com/JR33D/docker-compose-templates/main/traefik/traefik-compose.yml -o docker-compose.yml >> ~/docker-script-install.log 2>&1
 
+
+
+mkdir -p log
+touch log/debug.log
+touch log/access.log
+mkdir -p configuration
+cd configuration
 echo "downloading traefik configuration...."
 curl https://raw.githubusercontent.com/JR33D/docker-compose-templates/main/traefik/traefik.yml -o traefik.yml >> ~/docker-script-install.log 2>&1
 echo ""
-
+cd ..
 
 mkdir -p letsencrypt
 cd letsencrypt
+touch acme.json
 echo "downloading default tls options file...."
 curl https://raw.githubusercontent.com/JR33D/docker-compose-templates/main/traefik/letsencrypt/default-tls-options.yml -o default-tls-options.yml >> ~/docker-script-install.log 2>&1
 echo ""

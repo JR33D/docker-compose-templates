@@ -4,7 +4,7 @@ services:
   traefik:
     image: "traefik:latest"
     command:
-      - "--configFile=/traefik.yml"
+      - "--configFile=/configuration/traefik.yml"
     ports:
       - "80:80"
       - "443:443"
@@ -16,7 +16,6 @@ services:
       - ./log:/log
       - ./configuration:/configuration
       - ./letsencrypt:/letsencrypt
-      - ./traefik.yml:/traefik.yml:ro
     labels:
       - "traefik.http.routers.api.rule=Host(`traefik.localhost`)"
       - "traefik.http.routers.api.entrypoints=dashboard"
@@ -57,8 +56,12 @@ services:
 networks:
   web-public:
     external: true
+    # config:
+    #     - subnet: 172.168.5.0/24
   web-private:
     external: true
+    # config:
+    #     - subnet: 192.168.6.0/24
   socket-proxy:
     internal: true
     #Uncomment to enable network encryption between traefik and the socket proxy
