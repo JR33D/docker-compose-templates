@@ -134,6 +134,27 @@ certificatesResolvers:
       # Optional
       # Default: "https://acme-v02.api.letsencrypt.org/directory"
       # caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
+  godaddy-resolver:
+      acme:
+      
+        # Email address used for registration.
+        # Required
+        email: "email@here.tld"
+
+        # File or key used for certificates storage.
+        # Required
+        storage: "/letsencrypt/acme.json"
+
+          # CA server to use.
+          # Uncomment the line to use Let's Encrypt's staging server,
+          # leave commented to go to prod.
+          # Optional
+          # Default: "https://acme-v02.api.letsencrypt.org/directory"
+        caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
+        
+        dnschallenge:
+          provider: godaddy
+
 
 ################################################################
 # Docker configuration backend
@@ -149,7 +170,7 @@ providers:
     # Default: "unix:///var/run/docker.sock"
    endpoint: tcp://socket-proxy:2375
    swarmMode: true
-   network: web-servers
+   network: web-public
    watch: true
 
     # Default host rule.

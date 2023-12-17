@@ -9,6 +9,9 @@ services:
       - "80:80"
       - "443:443"
       - "8080:8080"
+    environment:
+      GODADDY_API_KEY:
+      GODADDY_API_SECRET:
     volumes:
       - ./letsencrypt:/letsencrypt
       - ./traefik.yml:/traefik.yml:ro
