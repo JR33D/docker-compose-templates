@@ -68,7 +68,7 @@ accessLog:
   #Intermediate directories are created if necessary.
   #Optional
   #Default: os.Stdout
-  filePath: /logs/access.log
+  filePath: /log/access.log
 
   #Format is either "json" or "common".
   #Optional

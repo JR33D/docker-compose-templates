@@ -8,8 +8,14 @@ services:
       replicas: 1
       labels:
         - traefik.enable=true
-        - traefik.http.routers.resume.rule=Host(`resume.jreed.me`)
-        - traefik.http.services.resume_resume.loadbalancer.server.port=3000
+
+        - "traefik.http.routers.resume_client.rule=Host(`resume.jreed.me`)"
+        - "traefik.http.routers.foo.service=resume_client"
+        - "traefik.http.services.resume_client.loadbalancer.server.port=3000"
+        
+        - "traefik.http.routers.resume_server.rule=Host(`resume.jreed.me/api`)"
+        - "traefik.http.routers.resume_server.service=resume_server"
+        - "traefik.http.services.resume_server.loadbalancer.server.port=3001"
     ports:
       - 3000:3000
       - 3001:3001
