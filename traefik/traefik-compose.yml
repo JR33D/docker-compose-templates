@@ -3,8 +3,24 @@ version: "3.3"
 services:
   traefik:
     image: "traefik:latest"
+    # command:
+    #   - "--configFile=/configuration/traefik.yml"
     command:
-      - "--configFile=/configuration/traefik.yml"
+      - --log.level=INFO
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --providers.docker
+      - --providers.docker.exposedbydefault=false
+      - --providers.docker.swarmmode=true
+      - --providers.docker.network=traefik-public
+      - --api
+      - --api.dashboard=true
+      - --certificatesresolvers.leresolver.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
+      # update your email here
+      - --certificatesresolvers.leresolver.acme.email=JReed129@gmail.com
+      # Make sure the this file is available and permission is set correctly
+      - --certificatesresolvers.leresolver.acme.storage=/le/acme.json
+      - --certificatesresolvers.leresolver.acme.tlschallenge=true
     ports:
       - "80:80"
       - "443:443"
@@ -16,20 +32,34 @@ services:
       - ./log:/log
       - ./configuration:/configuration
       - ./letsencrypt:/letsencrypt
-    labels:
-      - "traefik.http.routers.api.rule=Host(`traefik.localhost`)"
-      - "traefik.http.routers.api.entrypoints=dashboard"
-      - "traefik.http.routers.api.rule=PathPrefix(`/api`, `/dashboard`)"
-      - "traefik.http.routers.api.service=api@internal"
     networks:
-      - web-public
-      - web-private
+      - traefik-public
       - socket-proxy
     #I don't think this constraint is required since the socket-proxy is on a manager.
     deploy:
       placement:
         constraints:
           - node.role == manager
+      labels:
+        # Dashboard
+        - "traefik.enable=true"
+        # Change the host url here
+        - "traefik.http.routers.traefik.rule=Host(`traefik.example.com`)"
+        - "traefik.http.routers.traefik.service=api@internal"
+        - "traefik.http.services.traefik.loadbalancer.server.port=8080"
+        - "traefik.http.routers.traefik.tls.certresolver=leresolver"
+        - "traefik.http.routers.traefik.entrypoints=websecure"
+        - "traefik.http.routers.traefik.middlewares=authtraefik"
+        # Change the auth password here
+        - "traefik.http.middlewares.authtraefik.basicauth.users=admin:yournewpassword" # user/password
+
+        # global redirect to https
+        - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
+        - "traefik.http.routers.http-catchall.entrypoints=web"
+        - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
+
+        # middleware redirect
+        - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
 
   #This is the entry point into the docker socket.
   #It is not recommended to have a container with exposed ports also
@@ -54,14 +84,14 @@ services:
           - node.role == manager
 
 networks:
-  web-public:
-    external: true
-    # config:
-    #     - subnet: 172.168.5.0/24
-  web-private:
-    external: true
-    # config:
-    #     - subnet: 192.168.6.0/24
+  # web-public:
+  #   external: true
+  #   # config:
+  #   #     - subnet: 192.168.5.0/24
+  # web-private:
+  #   external: true
+  #   # config:
+  #   #     - subnet: 192.168.6.0/24
   socket-proxy:
     internal: true
     #Uncomment to enable network encryption between traefik and the socket proxy

@@ -13,7 +13,7 @@ cd docker/portainer
 curl https://raw.githubusercontent.com/JR33D/docker-compose-templates/main/portainer/portainer-ce-compose.yml -o docker-compose.yml >> ~/docker-script-install.log 2>&1
 echo ""
 
-sudo docker-compose up -d
+sudo docker compose up -d
 
 echo ""
 echo "   Navigate to your server hostname / IP address on port 9000 and create your admin account for Portainer-CE"

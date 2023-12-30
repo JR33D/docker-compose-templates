@@ -13,7 +13,7 @@ cd docker/portainer
 curl https://raw.githubusercontent.com/JR33D/docker-compose-templates/main/portainer/portainer-ce-agent-compose.yml -o docker-compose.yml >> ~/docker-script-install.log 2>&1
 echo ""
 
-sudo docker-compose up -d
+sudo docker compose up -d
 
 echo ""
 echo "    From Portainer or Portainer-CE add this Agent instance via the 'Endpoints' option in the left menu."

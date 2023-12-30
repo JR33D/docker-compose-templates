@@ -27,12 +27,13 @@ services:
       # DISABLE_IPV6: 'true'
 
     volumes:
-      - /data/_nginx/data:/data
-      - /data/_nginx/letsencrypt:/etc/letsencrypt
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
 
     networks:
       - reverseproxy-nw
 
 networks:
-  reverseproxy-nw:
-    external: true
+  reverseproxy-nw:   
+    driver: overlay
+    attachable: true
